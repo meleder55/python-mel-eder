@@ -1,19 +1,14 @@
-import os
-#  operating system
-
 # declare Global variable charSet - taken from assignment 
 charSet = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz`~!@#$%^&*()_-=|\\}]{[\"':;?/>.<, "
-
+choice = 'q'
 
 # define function called rot3_encrypt to encrypt passwords
 def rot3_encrypt(clearText):
     return "".join([charSet[(charSet.find(c) + 3) % 95] for c in clearText])
 
-
 # define function called rot3_decrypt to decrypt passwords
 def rot3_decrypt(encText):
     return "".join([charSet[(charSet.find(c) - 3) % 95] for c in encText])
-
 
 # define function called store_credentials to store user credentials
 def store_credentials():
@@ -25,12 +20,11 @@ def store_credentials():
         file.write(f"{username}\n{website}\n{encrypted_password}\n")
     print("Credentials stored successfully!")
 
-
 # define function to retrieve and display password of user
 def retrieve_and_display_password():
     username = input("Enter the username associated with the credentials: ")
     website = input("Enter the website: ")
-    if os.path.exists("credentials.txt"):
+    try:
         with open("credentials.txt", "r") as file:
             lines = file.readlines()
             for i in range(0, len(lines), 3):
@@ -39,30 +33,28 @@ def retrieve_and_display_password():
                 encrypted_password = lines[i+2].strip()
                 if stored_username == username and stored_website == website:
                     decrypted_password = rot3_decrypt(encrypted_password)
-                    print(f"Username: {stored_username}\nWebsite: {stored_website}\nPassword: {decrypted_password}")
+                    print(f"\n{'-'*40}\n| {'Username':<15} | {stored_username:<20} |\n{'-'*40}\n| {'Website':<15} | {stored_website:<20} |\n{'-'*40}\n| {'Password':<15} | {decrypted_password:<20} |\n{'-'*40}")
                     return
             print("No matching credentials found.")
-    else:
+    except FileNotFoundError:
         print("No credentials file found.")
-
 
 # Define function menu providing options to store, retrieve or quit.  
 def menu():
     while True:
         print("\nMenu:")
-        print("1. Add credentials")
-        print("2. Retrieve and display password")
-        print("3. Exit")
+        print("1. Store user")
+        print("2. Add user")
+        print("q. Quit")
         choice = input("Enter your choice: ")
         if choice == '1':
             store_credentials()
         elif choice == '2':
             retrieve_and_display_password()
-        elif choice == '3':
+        elif choice == 'q':
             break
         else:
             print("Invalid choice. Please try again.")
-
 
 if __name__ == "__main__":
     menu()
