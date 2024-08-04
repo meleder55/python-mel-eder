@@ -52,7 +52,11 @@ def retrieve_user():
                 encrypted_password = lines[i+2].strip()
                 if stored_username == username and stored_website == website:
                     decrypted_password = decrypt_password(encrypted_password, charSet)
-                    print(f"\n{'-'*40}\n| {'Username':<15} | {stored_username:<20} |\n{'-'*40}\n| {'Website':<15} | {stored_website:<20} |\n{'-'*40}\n| {'Password':<15} | {decrypted_password:<20} |\n{'-'*40}")
+                    print(f"\n{'-'*40}")
+                    print("| Username | Website | Password |")
+                    print(f"{'-'*40}")
+                    print(f"| {stored_username:<8} | {stored_website:<7} | {decrypted_password:<8} |")
+                    print(f"{'-'*40}")
                     return
             print("No matching credentials found.")
     except FileNotFoundError:
@@ -60,6 +64,8 @@ def retrieve_user():
 
 if __name__ == "__main__":
     menu()
+
+
 
 
 
