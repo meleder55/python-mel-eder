@@ -10,8 +10,8 @@ def rot3_encrypt(clearText):
 def rot3_decrypt(encText):
     return "".join([charSet[(charSet.find(c) - 3) % 95] for c in encText])
 
-# define function called store_credentials to store user credentials
-def store_credentials():
+# define function called store_user to store user credentials
+def store_user():
     username = input("Enter your username: ")
     website = input("Enter the website: ")
     password = input("Enter the password: ")
@@ -21,7 +21,7 @@ def store_credentials():
     print("Credentials stored successfully!")
 
 # define function to retrieve and display password of user
-def retrieve_and_display_password():
+def retrieve_user():
     username = input("Enter the username associated with the credentials: ")
     website = input("Enter the website: ")
     try:
@@ -44,13 +44,13 @@ def menu():
     while True:
         print("\nMenu:")
         print("1. Store user")
-        print("2. Add user")
+        print("2. Retrieve user")
         print("q. Quit")
         choice = input("Enter your choice: ")
         if choice == '1':
-            store_credentials()
+            store_user()
         elif choice == '2':
-            retrieve_and_display_password()
+            retrieve_user()
         elif choice == 'q':
             break
         else:
