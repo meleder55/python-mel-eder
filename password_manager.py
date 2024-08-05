@@ -4,18 +4,25 @@ import getpass
 # Declare global variable for quit option
 choice = 'q'
 
+# ANSI escape sequences for colors
+RED = "\033[91m"
+GREEN = "\033[92m"
+YELLOW = "\033[93m"
+BLUE = "\033[94m"
+RESET = "\033[0m"
+
 # Define function menu providing options to store, retrieve or quit.  
 def menu():
     global choice
     border = "-" * 30
     print(border)
-    print("|" + " " * 8 + "Password Manager" + " " * 8 + "|")
+    print(f"{BLUE}|{' ' * 8}Password Manager{' ' * 8}|{RESET}")
     print(border)
     while True:
         print("\nMenu:")
-        print("1. Store user")
-        print("2. Retrieve user")
-        print("q. Quit")
+        print(f"{GREEN}1. Store user{RESET}")
+        print(f"{GREEN}2. Retrieve user{RESET}")
+        print(f"{RED}q. Quit{RESET}")
         print("-" * 30)
         choice = input("Enter your choice: ")
         print("-" * 30)
@@ -26,7 +33,7 @@ def menu():
         elif choice == 'q':
             break
         else:
-            print("Invalid choice. Please try again.")
+            print(f"{RED}Invalid choice. Please try again.{RESET}")
 
 # Define function called encrypt_password to encrypt passwords
 def encrypt_password(clearText, charSet):
@@ -52,7 +59,7 @@ def store_user():
     encrypted_password = encrypt_password(password, charSet)
     with open("credentials.txt", "a") as file:
         file.write(f"{username}\n{website}\n{encrypted_password}\n")
-    print("Credentials stored successfully!")
+    print(f"{GREEN}Credentials stored successfully!{RESET}")
 
 # Define function to retrieve and display password of user
 def retrieve_user():
@@ -71,12 +78,12 @@ def retrieve_user():
                     border = "|"
                     print(f"\n{border}{'Username' : ^20}{border}{'Website' : ^20}{border}{'Password' : ^20}{border}")
                     print("-" * 65)
-                    print(f"{border}{stored_username : ^20}{border}{stored_website : ^20}{border}{decrypted_password : ^20}{border}")
+                    print(f"{border}{YELLOW}{stored_username : ^20}{RESET}{border}{YELLOW}{stored_website : ^20}{RESET}{border}{YELLOW}{decrypted_password : ^20}{RESET}{border}")
                     print("-" * 65)
                     return
-            print("No matching credentials found.")
+            print(f"{RED}No matching credentials found.{RESET}")
     except FileNotFoundError:
-        print("No credentials file found.")
+        print(f"{RED}No credentials file found.{RESET}")
 
 if __name__ == "__main__":
     menu()
