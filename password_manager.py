@@ -1,6 +1,8 @@
+import os
+import getpass
+
 # Declare global variable for quit option
 choice = 'q'
-
 
 # Define function menu providing options to store, retrieve or quit.  
 def menu():
@@ -20,28 +22,31 @@ def menu():
         else:
             print("Invalid choice. Please try again.")
 
-
 # Define function called encrypt_password to encrypt passwords
 def encrypt_password(clearText, charSet):
     return "".join([charSet[(charSet.find(c) + 3) % len(charSet)] for c in clearText])
-
 
 # Define function called decrypt_password to decrypt passwords
 def decrypt_password(encText, charSet):
     return "".join([charSet[(charSet.find(c) - 3) % len(charSet)] for c in encText])
 
+# Function to get password with '*' masking
+def get_password(prompt="Enter the password: "):
+    password = getpass.getpass(prompt)
+    masked_password = '*' * len(password)
+    print(masked_password)
+    return password
 
 # Define function called store_user to store user credentials
 def store_user():
     charSet = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz`~!@#$%^&*()_-=|\\}]{[\"':;?/>.<, "
     username = input("Enter your username: ")
     website = input("Enter the website: ")
-    password = input("Enter the password: ")
+    password = get_password()
     encrypted_password = encrypt_password(password, charSet)
     with open("credentials.txt", "a") as file:
         file.write(f"{username}\n{website}\n{encrypted_password}\n")
     print("Credentials stored successfully!")
-
 
 # Define function to retrieve and display password of user
 def retrieve_user():
@@ -67,23 +72,12 @@ def retrieve_user():
     except FileNotFoundError:
         print("No credentials file found.")
 
-
 if __name__ == "__main__":
     menu()
 
 
 
-
-
-
-
-
-
-
-
-     
-
-             
+                           
           
             
 
