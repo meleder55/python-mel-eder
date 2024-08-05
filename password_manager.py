@@ -1,31 +1,24 @@
-#The os module in Python provides a way to interact with the operating system. 
-#It includes functions for:
-#
-#File and Directory Management: Creating, removing, and changing directories, as well as handling files.
-#Process Management: Starting, stopping, and managing processes.
-#Environment Variables: Accessing and modifying environment variables.
-#Path Manipulation: Working with file and directory paths.
-    
 import os
-
-
-#The getpass module in Python is used to securely handle password input
 import getpass
-
 
 # Declare global variable for quit option
 choice = 'q'
 
-
 # Define function menu providing options to store, retrieve or quit.  
 def menu():
     global choice
+    border = "-" * 30
+    print(border)
+    print("|" + " " * 8 + "Password Manager" + " " * 8 + "|")
+    print(border)
     while True:
         print("\nMenu:")
         print("1. Store user")
         print("2. Retrieve user")
         print("q. Quit")
+        print("-" * 30)
         choice = input("Enter your choice: ")
+        print("-" * 30)
         if choice == '1':
             store_user()
         elif choice == '2':
@@ -35,16 +28,13 @@ def menu():
         else:
             print("Invalid choice. Please try again.")
 
-
 # Define function called encrypt_password to encrypt passwords
 def encrypt_password(clearText, charSet):
     return "".join([charSet[(charSet.find(c) + 3) % len(charSet)] for c in clearText])
 
-
 # Define function called decrypt_password to decrypt passwords
 def decrypt_password(encText, charSet):
     return "".join([charSet[(charSet.find(c) - 3) % len(charSet)] for c in encText])
-
 
 # Function to get password with '*' masking
 def get_password(prompt="Enter the password: "):
@@ -52,7 +42,6 @@ def get_password(prompt="Enter the password: "):
     masked_password = '*' * len(password)
     print(masked_password)
     return password
-
 
 # Define function called store_user to store user credentials
 def store_user():
@@ -64,7 +53,6 @@ def store_user():
     with open("credentials.txt", "a") as file:
         file.write(f"{username}\n{website}\n{encrypted_password}\n")
     print("Credentials stored successfully!")
-
 
 # Define function to retrieve and display password of user
 def retrieve_user():
@@ -92,9 +80,3 @@ def retrieve_user():
 
 if __name__ == "__main__":
     menu()
-                           
-          
-            
-
-
-        
