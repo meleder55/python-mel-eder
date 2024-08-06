@@ -31,6 +31,7 @@ def menu():
         elif choice == '2':
             retrieve_user()
         elif choice == 'q':
+            print("program terminated")
             break
         else:
             print(f"{RED}Invalid choice. Please try again.{RESET}")
