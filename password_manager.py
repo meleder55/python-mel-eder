@@ -1,4 +1,3 @@
-import os
 import getpass
 
 # Declare global variable for quit option
