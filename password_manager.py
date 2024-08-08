@@ -1,3 +1,6 @@
+#Password Manager program by Melissa Eder 8027788   09/08/2024 
+
+#import getpass to mask user password details
 import getpass
 
 # Declare global variable for quit option
